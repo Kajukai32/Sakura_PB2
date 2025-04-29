@@ -15,6 +15,16 @@ public class Automovil extends Transporte {
                 && (this.destinos.contains(paquete.getDestino()) || this.destinos.size() < 3)) {
             this.destinos.add(paquete.getDestino());
             return this.paquetes.add(paquete);
+        } else {
+            if (paquete.getVolumen() > this.capVolumen) {
+                System.out.println(this.getNombre() + ": " + paquete.toString() + "-> paquete muy alto");
+            }
+            if ((paquete.getPeso() + getPesoTotal()) > this.capPeso) {
+                System.out.println(this.getNombre() + ": " + paquete.toString()+ "-> paquete muy pesado");
+            }
+            if (!this.destinos.contains(paquete.getDestino()) && this.destinos.size() >= 3) {
+                System.out.println(this.getNombre() + ": " + paquete.toString()+ "-> Limite de (3) destinos alcanzado");
+            }
         }
         return false;
     }

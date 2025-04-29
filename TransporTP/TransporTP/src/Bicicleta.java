@@ -20,14 +20,14 @@ public class Bicicleta extends Transporte {
                 System.out.println(this.getNombre()+ ": " + paquete.toString() + "-> paquete muy alto");
             }
             if ((paquete.getPeso() + getPesoTotal()) > this.capPeso) {
-                System.out.println(this.getNombre() + ": paquete muy pesado");
+                System.out.println(this.getNombre()+ ": " + paquete.toString() + "-> paquete muy pesado");
             }
             if ((this.paquetes.size() + 1) >= 3) {
-                System.out.println(this.getNombre() + ": limite de 2 paquetes alcanzado");
+                System.out.println(this.getNombre()+ ": " + paquete.toString() + "-> limite de 2 paquetes alcanzado");
             }
             if (!this.destinos.isEmpty()) {
                 if (!Objects.equals(this.destinos.get(0), paquete.getDestino())) {
-                    System.out.println(this.getNombre() + ": Destino diferente al seteado previamente");
+                    System.out.println(this.getNombre()+ ": " + paquete.toString() + "-> Destino diferente al seteado previamente");
                 }
             }
 

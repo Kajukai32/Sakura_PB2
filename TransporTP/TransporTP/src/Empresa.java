@@ -19,6 +19,10 @@ public class Empresa {
 
     }
 
+    public Integer getCantPaquetes() {
+        return this.totalPaquetes.size();
+    }
+
     public String AgregadoExitosamente(Paquete paquete) {
 
         return "Paquete: " + paquete.toString() + "agregado exitosamente..";
@@ -37,9 +41,12 @@ public class Empresa {
 
         for (Transporte t : transportes) {
 
-            if (t.agregarPaquete(paquete)) {
+            boolean estado = t.agregarPaquete(paquete);
+
+            if (estado) {
                 System.out.println(AgregadoExitosamente(paquete) + " al transporte conocido como" + t.getNombre());
-                break;
+                totalPaquetes.add(paquete);
+                return;
 
             } else {
                 System.out.println(NoSePudoAgregar(paquete));

@@ -18,15 +18,6 @@ public abstract class Transporte {
         return nombre;
     }
 
-    //    public String AgregadoExitosamente(Paquete paquete) {
-//
-//        return "Paquete: " + paquete.toString() + "agregado exitosamente..";
-//    }
-//
-//    public String NoSePudoAgregar(Paquete paquete) {
-//
-//        return "Paquete: " + paquete.toString() + "imposible de agregar..";
-//    }
     protected void vaciarCarga() {
 
         for (Paquete paquete : paquetes) {

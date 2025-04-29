@@ -15,6 +15,13 @@ public class Camion extends Transporte {
                 return this.paquetes.add(paquete);
             }
 
+        } else {
+            if (paquete.getVolumen() > this.capVolumen) {
+                System.out.println(this.getNombre() + ": " + paquete.toString() + "-> paquete muy alto");
+            }
+            if ((paquete.getPeso() + getPesoTotal()) > this.capPeso) {
+                System.out.println(this.getNombre() + ": " + paquete.toString() + "-> paquete muy pesado");
+            }
         }
         return false;
     }
