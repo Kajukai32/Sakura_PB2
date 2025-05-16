@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 public abstract class Transporte {
 
     protected ArrayList<Paquete> paquetes = new ArrayList<>();
-    protected ArrayList<String> destinos = new ArrayList<>();
+    protected HashSet<Destino> destinos = new HashSet<>();
+//    protected Set<Destino> destinos = new HashSet<>();
 
     protected Double capVolumen;
     protected Double capPeso;

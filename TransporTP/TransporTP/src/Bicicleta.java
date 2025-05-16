@@ -1,4 +1,5 @@
-import java.util.Objects;
+import java.util.HashSet;
+
 
 public class Bicicleta extends Transporte {
 
@@ -12,29 +13,42 @@ public class Bicicleta extends Transporte {
     @Override
     protected Boolean agregarPaquete(Paquete paquete) {
         if ((paquete.getVolumen() <= this.capVolumen) && ((paquete.getPeso() + getPesoTotal()) <= this.capPeso) && ((this.paquetes.size() + 1) < 3)
-                && (this.destinos.isEmpty() || Objects.equals(this.destinos.get(0), paquete.getDestino()))) {
+                && checkDestino(paquete, this.destinos)) {
             this.destinos.add(paquete.getDestino());
             return this.paquetes.add(paquete);
         } else {
-            if (paquete.getVolumen() > this.capVolumen) {
-                System.out.println(this.getNombre()+ ": " + paquete.toString() + "-> paquete muy alto");
+            if (!(paquete.getVolumen() <= this.capVolumen)) {
+                System.out.println("pasado de volumen");
             }
-            if ((paquete.getPeso() + getPesoTotal()) > this.capPeso) {
-                System.out.println(this.getNombre()+ ": " + paquete.toString() + "-> paquete muy pesado");
+            if (!((paquete.getPeso() + getPesoTotal()) <= this.capPeso)) {
+                System.out.println("psado de peso");
             }
-            if ((this.paquetes.size() + 1) >= 3) {
-                System.out.println(this.getNombre()+ ": " + paquete.toString() + "-> limite de 2 paquetes alcanzado");
+            if (!((this.paquetes.size() + 1) < 3)) {
+                System.out.println("demasiados paquetes");
             }
-            if (!this.destinos.isEmpty()) {
-                if (!Objects.equals(this.destinos.get(0), paquete.getDestino())) {
-                    System.out.println(this.getNombre()+ ": " + paquete.toString() + "-> Destino diferente al seteado previamente");
-                }
+            if (!checkDestino(paquete, this.destinos)) {
+                System.out.println("problemas con el destino");
             }
-
 
             return false;
         }
 
+    }
+
+    public Boolean checkDestino(Paquete p, HashSet<Destino> listaDestinosActual) {
+        String ciudadPaquete;
+        String ciudadLista;
+
+        if (listaDestinosActual.isEmpty()) return true;
+
+        for (Destino d : listaDestinosActual) {
+            ciudadPaquete = p.getDestino().getCiudad().trim();
+            ciudadLista = d.getCiudad().trim();
+            if ((ciudadLista.equalsIgnoreCase(ciudadPaquete) && listaDestinosActual.size() < 2)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -47,3 +61,9 @@ public class Bicicleta extends Transporte {
     }
 
 }
+//Bicicleta:
+//        •
+//Se mueve dentro de la ciudad.
+//        •
+//Puede enviar dos paquetes de hasta 0.125 m3 y un máximo de 15 kg.
+//        NOTA: Si no tengo destino, el primer paquete me define el destino hacia dónde va la bicicleta.

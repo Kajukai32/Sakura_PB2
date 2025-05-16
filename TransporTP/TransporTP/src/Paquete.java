@@ -4,9 +4,9 @@ public class Paquete {
     private final Double peso;
     private final Double ancho;
     private final Double profundidad;
-    private final String destino;
+    private final Destino destino;
 
-    public Paquete(Double altura, Double peso, Double ancho, Double profundidad, String destino) {
+    public Paquete(Double altura, Double peso, Double ancho, Double profundidad, Destino destino) {
         this.altura = altura;
         this.peso = peso;
         this.ancho = ancho;
@@ -30,7 +30,7 @@ public class Paquete {
         return profundidad;
     }
 
-    public String getDestino() {
+    public Destino getDestino() {
         return destino;
     }
 
