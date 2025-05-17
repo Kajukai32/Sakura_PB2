@@ -18,107 +18,90 @@ public class TestTransporTP {
 
         Destino destino1 = new Destino("Buenos Aires", "Bueras 123");
         Destino destino2 = new Destino("Buenos Aires", "Bueras 13");
+        Destino destino4 = new Destino("Jujuy", "Ombu 57");
 
-        Paquete paquete1 = new Paquete(1.0, 2.0, 0.3, 0.12, destino1);
+        Paquete paquete1 = new Paquete(2.0, 2.0, 0.3, 0.12, destino1);
         Paquete paquete2 = new Paquete(1.0, 2.0, 0.3, 0.12, destino2);
+        Paquete paquete3 = new Paquete(1.0, 2.0, 0.3, 0.12, destino4);
+
 
         bici1.agregarPaquete(paquete1);
         bici1.agregarPaquete(paquete2);
+        bici1.agregarPaquete(paquete3);
 
 
         Assertions.assertEquals(2, bici1.cantPaquetes());
     }
 
-    //Bicicleta:
-//        •
-//Se mueve dentro de la ciudad.
-//        •
-//Puede enviar dos paquetes de hasta 0.125 m3 y un máximo de 15 kg.
-//        NOTA: Si no tengo destino, el primer paquete
+    @Test
+    public void crearAutomovil() {
 
-//    @Test
-//    public void crearAutomovil() {
-//
-//        Automovil auto1 = new Automovil("MiCoche");
-//
-//        Assertions.assertEquals("MiCoche", auto1.getNombre());
-//    }
-//
-//
-//    @Test
-//    public void crearCamion() {
-//
-//        Automovil camion1 = new Automovil("MiCamion");
-//
-//        Assertions.assertEquals("MiCamion", camion1.getNombre());
-//    }
-//
-//
+        Automovil auto1 = new Automovil("MiCoche");
 
-//
-//
-//    @Test
-//    public void biciCantPaquetes() {
-//
-//        Bicicleta bici1 = new Bicicleta("MiBici");
-//        Paquete paquete1 = new Paquete(1.0, 2.0, 0.3, 0.12, "Mendoza");
-//        Boolean confirmacion1 = bici1.agregarPaquete(paquete1);
-//        bici1.vaciarCarga();
-//
-//        Assertions.assertEquals(0, bici1.cantPaquetes());
-//    }
-//
-//    @Test
-//    public void testDestinosAutomovil() {
-//
-//        Automovil auto1 = new Automovil("MiAuto");
-//
-//        Paquete paquete1 = new Paquete(1.0, 2.0, 0.3, 0.12, "Mendoza");
-//        Paquete paquete2 = new Paquete(1.0, 2.0, 0.3, 0.12, "TierraDelFuego");
-//        Paquete paquete3 = new Paquete(1.0, 2.0, 0.3, 0.12, "Usuhaia");
-//        Paquete paquete4 = new Paquete(1.0, 2.0, 0.3, 0.12, "Bs As");
-//
-//        auto1.agregarPaquete(paquete1);
-//        auto1.agregarPaquete(paquete2);
-//        auto1.agregarPaquete(paquete3);
-//        auto1.agregarPaquete(paquete4);
-//
-//        Assertions.assertEquals(3, auto1.cantPaquetes());
-//    }
-//
-//    @Test
-//    public void testProblemasConElPaqueteAutomovil() {
-//
-//        Automovil auto1 = new Automovil("MiAuto");
-//
-//        Paquete paquete1 = new Paquete(1.0, 2.0, 0.3, 0.12, "Mendoza");
-//        Paquete paquete2 = new Paquete(1.0, 130000.0, 0.3, 0.12, "TierraDelFuego");
-//        Paquete paquete3 = new Paquete(1000.0, 2.0, 0.3, 0.12, "Usuhaia");
-//
-//        auto1.agregarPaquete(paquete1);
-//        auto1.agregarPaquete(paquete2);
-//        auto1.agregarPaquete(paquete3);
-//
-//
-//        Assertions.assertEquals(1, auto1.cantPaquetes());
-//    }
-//
-//    @Test
-//    public void testCamion() {
-//
-//        Camion camion1 = new Camion("MiAuto");
-//
-//        Paquete paquete1 = new Paquete(1.0, 2.0, 0.3, 0.12, "Mendoza");
-//        Paquete paquete2 = new Paquete(1.0, 18880000.0, 0.3, 0.12, "TierraDelFuego");
-//        Paquete paquete3 = new Paquete(1000.0, 2.0, 0.3, 0.12, "Usuhaia");
-//
-//        camion1.agregarPaquete(paquete1);
-//        camion1.agregarPaquete(paquete2);
-//        camion1.agregarPaquete(paquete3);
-//
-//
-//        Assertions.assertEquals(1, camion1.cantPaquetes());
-//    }
+        Assertions.assertEquals("MiCoche", auto1.getNombre());
+    }
+
+    @Test
+    public void testProblemasConDestinoAutomovil() {
+
+        Transporte auto1 = new Automovil("MiAuto");
+
+        Destino destino1 = new Destino("Buenos Aires", "Bueras 123");
+        Destino destino2 = new Destino("Tierra del Fuego", "San Martin 13");
+        Destino destino3 = new Destino("Clorinda", "Urundel 587");
+        Destino destino4 = new Destino("Clorinda", "Ombu 57");
+
+        Paquete paquete1 = new Paquete(1.0, 2.0, 0.3, 0.12, destino1);
+        Paquete paquete2 = new Paquete(2.0, 13.0, 0.3, 0.12, destino2);
+        Paquete paquete3 = new Paquete(3.0, 2.0, 0.3, 0.12, destino3);
+        Paquete paquete4 = new Paquete(4.0, 2.0, 0.3, 0.12, destino4);
+
+        auto1.agregarPaquete(paquete1);
+        auto1.agregarPaquete(paquete2);
+        auto1.agregarPaquete(paquete3);
+        auto1.agregarPaquete(paquete4);
+
+
+        Assertions.assertEquals(4, auto1.cantPaquetes());
+    }
+
+
+    @Test
+    public void crearCamion() {
+
+        Automovil camion1 = new Automovil("MiCamion");
+
+        Assertions.assertEquals("MiCamion", camion1.getNombre());
+    }
+
+
+    @Test
+    public void testCamion() {
+
+        Camion camion1 = new Camion("MiAuto");
+
+
+        Destino destino1 = new Destino("Buenos Aires", "Bueras 123");
+        Destino destino2 = new Destino("Tierra del Fuego", "San Martin 13");
+        Destino destino3 = new Destino("Clorinda", "Urundel 587");
+        Destino destino4 = new Destino("Clorinda", "Ombu 57");
+
+        Paquete paquete1 = new Paquete(1.0, 2.0, 0.3, 0.12,destino1);
+        Paquete paquete2 = new Paquete(1.0, 10.0, 0.3, 0.12, destino2);
+        Paquete paquete3 = new Paquete(12.0, 2.0, 0.3, 0.12, destino3);
+        Paquete paquete4 = new Paquete(12.0, 2.0, 0.3, 0.12, destino3);
+
+        camion1.agregarPaquete(paquete1);
+        camion1.agregarPaquete(paquete2);
+        camion1.agregarPaquete(paquete3);
+        camion1.agregarPaquete(paquete4);
+
+
+        Assertions.assertEquals(1, camion1.getTotalDestinos());
+    }
+
+
+
 //
 //    @Test
 //    public void crearEmpresa() {

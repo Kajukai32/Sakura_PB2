@@ -8,13 +8,16 @@ public class Bicicleta extends Transporte {
         super(nombre);
         this.capPeso = 15.0;
         this.capVolumen = 0.125;
+        this.maxCiudades = 1;
     }
 
     @Override
     protected Boolean agregarPaquete(Paquete paquete) {
-        if ((paquete.getVolumen() <= this.capVolumen) && ((paquete.getPeso() + getPesoTotal()) <= this.capPeso) && ((this.paquetes.size() + 1) < 3)
-                && checkDestino(paquete, this.destinos)) {
-            this.destinos.add(paquete.getDestino());
+        if (checkVolumen(paquete.getVolumen()) && checkPeso(this.getPesoTotal(), paquete) &&
+                ((this.paquetes.size() + 1) < 3) && checkDestino(paquete, this.destinos, this.maxCiudades)) {
+            if (this.destinos.contains(paquete.getDestino())) {
+                this.destinos.add(paquete.getDestino());
+            }
             return this.paquetes.add(paquete);
         } else {
             if (!(paquete.getVolumen() <= this.capVolumen)) {
@@ -26,7 +29,7 @@ public class Bicicleta extends Transporte {
             if (!((this.paquetes.size() + 1) < 3)) {
                 System.out.println("demasiados paquetes");
             }
-            if (!checkDestino(paquete, this.destinos)) {
+            if (!checkDestino(paquete, this.destinos, this.maxCiudades)) {
                 System.out.println("problemas con el destino");
             }
 
@@ -35,30 +38,6 @@ public class Bicicleta extends Transporte {
 
     }
 
-    public Boolean checkDestino(Paquete p, HashSet<Destino> listaDestinosActual) {
-        String ciudadPaquete;
-        String ciudadLista;
-
-        if (listaDestinosActual.isEmpty()) return true;
-
-        for (Destino d : listaDestinosActual) {
-            ciudadPaquete = p.getDestino().getCiudad().trim();
-            ciudadLista = d.getCiudad().trim();
-            if ((ciudadLista.equalsIgnoreCase(ciudadPaquete) && listaDestinosActual.size() < 2)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    protected Double getPesoTotal() {
-        Double cont = 0.0;
-        for (Paquete p : this.paquetes) {
-            cont += p.getPeso();
-        }
-        return cont;
-    }
 
 }
 //Bicicleta:

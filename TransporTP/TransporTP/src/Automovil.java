@@ -1,4 +1,4 @@
-import java.util.Objects;
+import java.util.HashSet;
 
 public class Automovil extends Transporte {
 
@@ -6,35 +6,36 @@ public class Automovil extends Transporte {
         super(nombre);
         this.capPeso = 500.0;
         this.capVolumen = 2.0;
+        this.maxCiudades = 3;
 
     }
 
     @Override
     protected Boolean agregarPaquete(Paquete paquete) {
-        if ((paquete.getVolumen() <= this.capVolumen) && ((paquete.getPeso() + getPesoTotal()) <= this.capPeso)
-                && (this.destinos.contains(paquete.getDestino()) || this.destinos.size() < 3)) {
-            this.destinos.add(paquete.getDestino());
+        if (checkVolumen(paquete.getVolumen(), getVolumenTotal()) && checkPeso(this.getPesoTotal(), paquete)
+                && checkDestino(paquete, this.destinos, this.maxCiudades)) {
+            if (this.destinos.contains(paquete.getDestino())) {
+                this.destinos.add(paquete.getDestino());
+            }
             return this.paquetes.add(paquete);
         } else {
-            if (paquete.getVolumen() > this.capVolumen) {
+            if (!checkVolumen(paquete.getVolumen(), getVolumenTotal())) {
                 System.out.println(this.getNombre() + ": " + paquete.toString() + "-> paquete muy alto");
             }
-            if ((paquete.getPeso() + getPesoTotal()) > this.capPeso) {
-                System.out.println(this.getNombre() + ": " + paquete.toString()+ "-> paquete muy pesado");
+            if (!checkPeso(this.getPesoTotal(), paquete)) {
+                System.out.println(this.getNombre() + ": " + paquete.toString() + "-> paquete muy pesado");
             }
-            if (!this.destinos.contains(paquete.getDestino()) && this.destinos.size() >= 3) {
-                System.out.println(this.getNombre() + ": " + paquete.toString()+ "-> Limite de (3) destinos alcanzado");
+            if (!checkDestino(paquete, this.destinos, 3)) {
+                System.out.println(this.getNombre() + ": " + paquete.toString() + "-> Limite de (3) Ciudades alcanzado");
             }
         }
         return false;
     }
 
-    @Override
-    protected Double getPesoTotal() {
-        Double cont = 0.0;
-        for (Paquete p : this.paquetes) {
-            cont += p.getPeso();
-        }
-        return cont;
-    }
+
 }
+//Automóvil:
+//        •
+//Abarca hasta 3 ciudades. Los destinos no se pueden repetir.
+//        •
+//Puede llevar hasta 2m3 de carga y hasta 500kg.

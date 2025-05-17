@@ -11,6 +11,7 @@ public abstract class Transporte {
     protected Double capVolumen;
     protected Double capPeso;
     protected String nombre;
+    protected Integer maxCiudades;
 
     public Transporte(String nombre) {
         this.nombre = nombre;
@@ -18,6 +19,10 @@ public abstract class Transporte {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public int getTotalDestinos() {
+        return this.destinos.size();
     }
 
     protected void vaciarCarga() {
@@ -49,5 +54,48 @@ public abstract class Transporte {
     protected abstract Boolean agregarPaquete(Paquete paquete);
 
 
-    protected abstract Double getPesoTotal();
+    protected Double getPesoTotal() {
+        Double cont = 0.0;
+        for (Paquete p : this.paquetes) {
+            cont += p.getPeso();
+        }
+        return cont;
+    }
+
+    protected Double getVolumenTotal() {
+        Double cont = 0.0;
+        for (Paquete p : this.paquetes) {
+            cont += p.getVolumen();
+        }
+        return cont;
+    }
+
+    protected Boolean checkVolumen(Double p) {
+        return (p <= this.capVolumen);
+    }
+
+    protected Boolean checkVolumen(Double p, Double volumenTotal) {
+        return (p + volumenTotal <= this.capVolumen);
+    }
+
+    protected Boolean checkPeso(Double pesoTotal, Paquete p) {
+        return ((p.getPeso() + pesoTotal) <= this.capPeso);
+    }
+
+    public Boolean checkDestino(Paquete p, HashSet<Destino> listaDestinosActual, Integer maxCiudades) {
+        String ciudadPaquete;
+        String ciudadLista;
+
+        if (listaDestinosActual.isEmpty()) return true;
+
+        for (Destino d : listaDestinosActual) {
+            ciudadPaquete = p.getDestino().getCiudad().trim();
+            ciudadLista = d.getCiudad().trim();
+            if ((ciudadLista.equalsIgnoreCase(ciudadPaquete) || listaDestinosActual.size() < maxCiudades)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

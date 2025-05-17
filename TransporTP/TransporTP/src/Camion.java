@@ -4,34 +4,32 @@ public class Camion extends Transporte {
         super(nombre);
         this.capPeso = 16000.0;
         this.capVolumen = 20.0;
+        this.maxCiudades = 1000;
 
     }
 
     @Override
     protected Boolean agregarPaquete(Paquete paquete) {
-        if ((paquete.getVolumen() <= this.capVolumen) && ((paquete.getPeso() + getPesoTotal()) <= this.capPeso)) {
-            if (!destinos.contains(paquete.getDestino())) {
-                this.destinos.add(paquete.getDestino());
-                return this.paquetes.add(paquete);
-            }
-
+        if (checkVolumen(paquete.getVolumen(), this.getVolumenTotal()) && checkPeso(this.getPesoTotal(), paquete) && checkDestino(paquete, this.destinos, maxCiudades)) {
+            this.destinos.add(paquete.getDestino());
+            return this.paquetes.add(paquete);
         } else {
-            if (paquete.getVolumen() > this.capVolumen) {
-                System.out.println(this.getNombre() + ": " + paquete.toString() + "-> paquete muy alto");
+            if (!checkVolumen(paquete.getVolumen(), this.getVolumenTotal())) {
+                System.out.println(this.getNombre() + ": " + paquete + "-> problemas con el volumen");
             }
-            if ((paquete.getPeso() + getPesoTotal()) > this.capPeso) {
-                System.out.println(this.getNombre() + ": " + paquete.toString() + "-> paquete muy pesado");
+            if (!checkPeso(this.getPesoTotal(), paquete)) {
+                System.out.println(this.getNombre() + ": " + paquete + "-> paquete muy pesado");
+            }
+            if (!checkDestino(paquete, this.destinos, maxCiudades)) {
+                System.out.println("problemas con el destino");
             }
         }
         return false;
     }
 
-    @Override
-    protected Double getPesoTotal() {
-        Double cont = 0.0;
-        for (Paquete p : this.paquetes) {
-            cont += p.getPeso();
-        }
-        return cont;
-    }
 }
+//•
+//Abarca todas las cuidades necesarias.
+//•
+//Puede llevar hasta 20 m3 de carga y máximo de 16 toneladas.
+//        Requerimientos.
