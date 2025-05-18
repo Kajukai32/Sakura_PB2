@@ -12,11 +12,12 @@ public class Automovil extends Transporte {
 
     @Override
     protected Boolean agregarPaquete(Paquete paquete) {
+
         if (checkVolumen(paquete.getVolumen(), getVolumenTotal()) && checkPeso(this.getPesoTotal(), paquete)
-                && checkDestino(paquete, this.destinos, this.maxCiudades)) {
-            if (this.destinos.contains(paquete.getDestino())) {
-                this.destinos.add(paquete.getDestino());
-            }
+                && checkDestino(paquete, this.destinos, this.maxCiudades)&&!checkPaqueteDuplicado(paquete,this.paquetes)) {
+
+            this.destinos.add(paquete.getDestino());
+
             return this.paquetes.add(paquete);
         } else {
             if (!checkVolumen(paquete.getVolumen(), getVolumenTotal())) {
@@ -27,6 +28,9 @@ public class Automovil extends Transporte {
             }
             if (!checkDestino(paquete, this.destinos, 3)) {
                 System.out.println(this.getNombre() + ": " + paquete.toString() + "-> Limite de (3) Ciudades alcanzado");
+            }
+            if (checkPaqueteDuplicado(paquete, this.paquetes)){
+                System.out.println(paquete + "  ->> paquete ya existente");
             }
         }
         return false;

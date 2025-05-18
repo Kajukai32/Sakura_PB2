@@ -1,13 +1,14 @@
-import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.Objects;
 
+
 public abstract class Transporte {
 
-    protected ArrayList<Paquete> paquetes = new ArrayList<>();
+    protected HashSet<Paquete> paquetes = new HashSet<>();
     protected HashSet<Destino> destinos = new HashSet<>();
-//    protected Set<Destino> destinos = new HashSet<>();
 
+    protected Propietario prop;
     protected Double capVolumen;
     protected Double capPeso;
     protected String nombre;
@@ -15,6 +16,11 @@ public abstract class Transporte {
 
     public Transporte(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Transporte(String nombre, Propietario duenio) {
+        this.nombre = nombre;
+        this.prop = duenio;
     }
 
     public String getNombre() {
@@ -40,15 +46,14 @@ public abstract class Transporte {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transporte that = (Transporte) o;
-        return Objects.equals(nombre, that.nombre);
+        return Objects.equals(prop, that.prop) && Objects.equals(nombre, that.nombre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(nombre);
+        return Objects.hash(prop, nombre);
     }
 
     protected abstract Boolean agregarPaquete(Paquete paquete);
@@ -76,6 +81,10 @@ public abstract class Transporte {
 
     protected Boolean checkVolumen(Double p, Double volumenTotal) {
         return (p + volumenTotal <= this.capVolumen);
+    }
+
+    public Boolean checkPaqueteDuplicado(Paquete p, HashSet<Paquete> paquetesCargados) {
+        return paquetesCargados.contains(p);
     }
 
     protected Boolean checkPeso(Double pesoTotal, Paquete p) {

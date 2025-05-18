@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Paquete {
 
     private final Double altura;
@@ -5,6 +7,7 @@ public class Paquete {
     private final Double ancho;
     private final Double profundidad;
     private final Destino destino;
+    private final Long id;
 
     public Paquete(Double altura, Double peso, Double ancho, Double profundidad, Destino destino) {
         this.altura = altura;
@@ -12,6 +15,7 @@ public class Paquete {
         this.ancho = ancho;
         this.profundidad = profundidad;
         this.destino = destino;
+        this.id = System.nanoTime();
     }
 
     public Double getAltura() {
@@ -34,9 +38,25 @@ public class Paquete {
         return destino;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public Double getVolumen() {
 
         return getAltura() * getAncho() * getProfundidad();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Paquete paquete = (Paquete) o;
+        return Objects.equals(altura, paquete.altura) && Objects.equals(peso, paquete.peso) && Objects.equals(ancho, paquete.ancho) && Objects.equals(profundidad, paquete.profundidad) && Objects.equals(destino, paquete.destino) && Objects.equals(id, paquete.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(altura, peso, ancho, profundidad, destino, id);
     }
 
     @Override

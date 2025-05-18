@@ -10,7 +10,7 @@ public class Camion extends Transporte {
 
     @Override
     protected Boolean agregarPaquete(Paquete paquete) {
-        if (checkVolumen(paquete.getVolumen(), this.getVolumenTotal()) && checkPeso(this.getPesoTotal(), paquete) && checkDestino(paquete, this.destinos, maxCiudades)) {
+        if (checkVolumen(paquete.getVolumen(), this.getVolumenTotal()) && checkPeso(this.getPesoTotal(), paquete) && checkDestino(paquete, this.destinos, maxCiudades) && !checkPaqueteDuplicado(paquete, this.paquetes)) {
             this.destinos.add(paquete.getDestino());
             return this.paquetes.add(paquete);
         } else {
@@ -22,6 +22,9 @@ public class Camion extends Transporte {
             }
             if (!checkDestino(paquete, this.destinos, maxCiudades)) {
                 System.out.println("problemas con el destino");
+            }
+            if (checkPaqueteDuplicado(paquete, this.paquetes)) {
+                System.out.println(paquete + "  ->> paquete ya existente");
             }
         }
         return false;

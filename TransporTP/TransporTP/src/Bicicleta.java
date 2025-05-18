@@ -14,10 +14,10 @@ public class Bicicleta extends Transporte {
     @Override
     protected Boolean agregarPaquete(Paquete paquete) {
         if (checkVolumen(paquete.getVolumen()) && checkPeso(this.getPesoTotal(), paquete) &&
-                ((this.paquetes.size() + 1) < 3) && checkDestino(paquete, this.destinos, this.maxCiudades)) {
-            if (this.destinos.contains(paquete.getDestino())) {
-                this.destinos.add(paquete.getDestino());
-            }
+                ((this.paquetes.size() + 1) < 3) && checkDestino(paquete, this.destinos, this.maxCiudades) && !checkPaqueteDuplicado(paquete, this.paquetes)) {
+//            if (this.destinos.contains(paquete.getDestino())) {
+//            }
+            this.destinos.add(paquete.getDestino());
             return this.paquetes.add(paquete);
         } else {
             if (!(paquete.getVolumen() <= this.capVolumen)) {
@@ -31,6 +31,9 @@ public class Bicicleta extends Transporte {
             }
             if (!checkDestino(paquete, this.destinos, this.maxCiudades)) {
                 System.out.println("problemas con el destino");
+            }
+            if (checkPaqueteDuplicado(paquete, this.paquetes)) {
+                System.out.println(paquete + "  ->> paquete ya existente");
             }
 
             return false;

@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Empresa {
 
@@ -6,16 +8,15 @@ public class Empresa {
     public Empresa() {
     }
 
-    private ArrayList<Transporte> transportes = new ArrayList<>();
+    private Set<Transporte> transportes = new HashSet<>();
     private ArrayList<Paquete> totalPaquetes = new ArrayList<>();
 
     public void agregarTransporte(Transporte t) {
 
-        if (!transportes.contains(t)) {
-            transportes.add(t);
+        if (transportes.add(t)) {
             System.out.println("Caso " + t.getNombre() + ": Adicion de flota exitosa..");
         } else
-            System.out.println("Caso " + t.getNombre() + ": Error en la adicion de flota, transporte con el mismo nombre ya existente..");
+            System.out.println("Caso " + t.getNombre() + ": Error en la adicion de flota, transporte con el mismo nombre e id ya existente..");
 
     }
 
